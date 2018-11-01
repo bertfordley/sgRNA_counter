@@ -203,7 +203,7 @@ if __name__ == "__main__":
     full_file_list = meta_file_stad["fastq_R1_filename"].tolist()
     # full_file_list = ["10004550-R1.fastq.gz", "9918101-R1.fastq.gz", "9249509-R1.fastq.gz", "10003155-R1.fastq.gz"]
 
-    # Form ciruits. First two indices in values are the inputs for the respective gate.
+    # Form circuits. First two indices in values are the inputs for the respective gate.
     # First index is left-side of truth table and second index is right-side of truth table
     # from Gander et al. 2017. For example, "OR" gate's input is "r3" and "r6".
     # For 0,1 in the truth table, "r3" is turned off and "r6" is turned on.
@@ -233,7 +233,7 @@ if __name__ == "__main__":
     total_batches = int(round(len(full_file_list)/n_jobs, 0) + 1)
     sub_lists = grouper(n_jobs, full_file_list)
     for batchi, sub_file_list in enumerate(sub_lists):
-        total_counts_df_list = Parallel(n_jobs=n_jobs, backend="multiprocessing")(delayed(countFile)(onefile, filedir, meta_file_stad, gate_seqs_dict, gate_dict, i, total_batches, batchi, len(sub_file_list), 80) for i, onefile in enumerate(sub_file_list))
+        total_counts_df_list = Parallel(n_jobs=n_jobs)(delayed(countFile)(onefile, filedir, meta_file_stad, gate_seqs_dict, gate_dict, i, total_batches, batchi, len(sub_file_list), 80) for i, onefile in enumerate(sub_file_list))
         total_counts_df_list = [x for x in total_counts_df_list if x != {}]
         
         counts_dict_list.append(pd.DataFrame(total_counts_df_list))
