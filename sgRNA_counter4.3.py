@@ -175,10 +175,10 @@ if __name__ == "__main__":
     # Set input variables
     
     # Where meta file and gate seqs file are stored
-    maindir = "/Users/robertmoseley/Desktop/sgRNA"
+    maindir = "/Users/haase-admin/Desktop/rmoseley/sgRNA_counter"
     
     # Where fastq files are stored
-    filedir = "/Users/robertmoseley/Desktop/sgRNA/samples"
+    filedir = "/Users/haase-admin/Desktop/rmoseley/sgRNA_counter/fastq_files"
     output_file_name = "merged_meta_counts_data"
     
     # test_file_names = ["9918080-R1.fastq.gz", "9918096-R1.fastq.gz"]
@@ -200,8 +200,8 @@ if __name__ == "__main__":
     meta_file_stad = getMeta(meta_file_name, maindir, media_selection)
     
     # list of fastq file names (list)
-    # full_file_list = meta_file_stad["fastq_R1_filename"].tolist()
-    full_file_list = ["10004550-R1.fastq.gz", "9918101-R1.fastq.gz", "9249509-R1.fastq.gz", "10003155-R1.fastq.gz"]
+    full_file_list = meta_file_stad["fastq_R1_filename"].tolist()
+    # full_file_list = ["10004550-R1.fastq.gz", "9918101-R1.fastq.gz", "9249509-R1.fastq.gz", "10003155-R1.fastq.gz"]
 
     # Form ciruits. First two indices in values are the inputs for the respective gate.
     # First index is left-side of truth table and second index is right-side of truth table
@@ -229,7 +229,7 @@ if __name__ == "__main__":
     # Parallel
     # Count parts of each gate in respective fastq file
     counts_dict_list = []
-    n_jobs = 4
+    n_jobs = 10
     total_batches = int(round(len(full_file_list)/3, 0) + 1)
     sub_lists = grouper(3, full_file_list)
     for batchi, sub_file_list in enumerate(sub_lists):
