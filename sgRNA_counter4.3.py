@@ -231,7 +231,7 @@ if __name__ == "__main__":
     counts_dict_list = []
     n_jobs = 10
     total_batches = int(round(len(full_file_list)/n_jobs, 0) + 1)
-    sub_lists = grouper(3, full_file_list)
+    sub_lists = grouper(n_jobs, full_file_list)
     for batchi, sub_file_list in enumerate(sub_lists):
         total_counts_df_list = Parallel(n_jobs=n_jobs, backend="multiprocessing")(delayed(countFile)(onefile, filedir, meta_file_stad, gate_seqs_dict, gate_dict, i, total_batches, batchi, len(sub_file_list), 80) for i, onefile in enumerate(sub_file_list))
         total_counts_df_list = [x for x in total_counts_df_list if x != {}]
